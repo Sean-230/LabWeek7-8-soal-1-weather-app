@@ -1,6 +1,5 @@
 package com.sean.labweek78.ui.view
 
-import android.R.attr.text
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,46 +25,41 @@ import androidx.compose.ui.unit.sp
 import com.sean.labweek78.R
 
 @Composable
-fun WeatherCard(
+fun infoCard(
     title: String,
-    time: String,
     imageId: Int,
+    value: String
 ) {
     Card(
         modifier = Modifier
-            .width(140.dp)
-            .height(120.dp),
-        shape = RoundedCornerShape(12.dp),
+            .width(100.dp)
+            .height(100.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent
+            containerColor = Color(0xff555a6e)
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
-    ){
+        shape = RoundedCornerShape(12.dp)
+    ) {
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(imageId),
                 contentDescription = "image",
-                modifier = Modifier.size(25.dp)
+                modifier = Modifier.size(50.dp)
             )
             Text(
                 text = title,
-                color = Color.White,
-                fontSize = 16.sp,
+                color = Color(0xff9095a0),
+                fontSize = 13.sp,
                 fontWeight = FontWeight.Bold
             )
 
-            Spacer(modifier = Modifier.padding(top = 16.dp))
-
             Text(
-                text = time,
+                text = value,
                 color = Color.White,
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 4.sp
+                fontSize = 20.sp
             )
         }
     }
@@ -73,12 +67,10 @@ fun WeatherCard(
 
 @Composable
 @Preview(showBackground = true)
-fun WeatherCardPreview(
-
-){
-    WeatherCard(
-        title = "Sunrise",
-        time = "5:00",
-        imageId = R.drawable.vector
+fun infoCardPreview() {
+    infoCard(
+        title = "Feels Like",
+        imageId = R.drawable.icon_feels_like,
+        value = "20%"
     )
 }
