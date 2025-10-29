@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -39,7 +41,9 @@ import androidx.compose.ui.unit.sp
 import com.sean.labweek78.R
 
 @Composable
-fun HomeSoal1() {
+fun weatherAppView(
+
+) {
     var searchText by rememberSaveable { mutableStateOf("") }
 
     Box(
@@ -131,31 +135,65 @@ fun HomeSoal1() {
                     )
                 }
             }
-
-            Column(
-                modifier = Modifier
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search Placeholder",
-                    tint = Color(0xffa0a5b7),
-                    modifier = Modifier.size(90.dp)
-                )
-                Text(
-                    text = "Search for a city to get started",
-                    color = Color(0xffa0a5b7),
-                    fontSize = 16.sp
-                )
-            }
+            errorView()
         }
     }
 }
 
 @Composable
+fun weatherDetail(
+
+){
+
+}
+
+@Composable
+fun searchView(){
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Icon(
+            imageVector = Icons.Default.Search,
+            contentDescription = "Search Placeholder",
+            tint = Color(0xffa0a5b7),
+            modifier = Modifier.size(90.dp)
+        )
+        Text(
+            text = "Search for a city to get started",
+            color = Color(0xffa0a5b7),
+            fontSize = 16.sp
+        )
+    }
+}
+
+@Composable
+fun errorView(){
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Icon(
+            imageVector = Icons.Default.Warning,
+            contentDescription = "Error Icon",
+            modifier = Modifier.size(80.dp),
+            tint = Color.Red.copy(alpha = 0.8f)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Oops! Something went wrong.",
+            color = Color.White,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@Composable
 @Preview(showBackground = true, showSystemUi = true)
-fun HomeSoal1Preview() {
-    HomeSoal1()
+fun weatherAppPreview() {
+    weatherAppView()
 }
