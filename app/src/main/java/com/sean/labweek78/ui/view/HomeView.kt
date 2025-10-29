@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
@@ -43,10 +44,10 @@ import com.sean.labweek78.R
 
 @Composable
 fun weatherAppView(
-
+    viewModel: com.sean.labweek78.ui.model.weatherModel,
+    modifier: Modifier = Modifier
 ) {
     var searchText by rememberSaveable { mutableStateOf("") }
-
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -145,19 +146,71 @@ fun weatherAppView(
 @Composable
 fun weatherDetail(
 
-){
+) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.LocationOn,
+                    contentDescription = "Location Icon",
+                    tint = Color.White,
+                )
+
+                Spacer(modifier = Modifier.padding(horizontal = 5.dp))
+
+                Text(
+                    text = "Surabaya ?",
+                    color = Color.White,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            Text(
+                text = "September 29",
+                color = Color.White,
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            Text(
+                text = "Updated as of 2:53 PM",
+                color = Color(0xffbbbbdd),
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Light
+            )
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
 
 
+                }
+            }
+        }
     }
 }
 
 @Composable
-fun searchView(){
+fun searchView() {
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -179,7 +232,7 @@ fun searchView(){
 }
 
 @Composable
-fun errorView(){
+fun errorView() {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -204,5 +257,7 @@ fun errorView(){
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 fun weatherAppPreview() {
-    weatherAppView()
+    weatherAppView(
+
+    )
 }

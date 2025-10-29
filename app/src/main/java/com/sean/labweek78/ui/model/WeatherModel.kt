@@ -10,7 +10,7 @@ data class weatherModel(
     val humidity: Int = 0,
     val windSpeed: Double = 0.0,
     val feelsLike: Double = 0.0,
-    val rainFall: Double ? = null,
+    val rainFall: Double? = null,
     val pressure: Int = 0,
     val cloud: Int = 0,
     val sunriseTime: Int = 0,

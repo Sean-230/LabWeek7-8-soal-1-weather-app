@@ -2,8 +2,6 @@ package com.sean.labweek78.data.repository
 
 import com.sean.labweek78.data.service.WeatherApiService
 import com.sean.labweek78.ui.model.weatherModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class WeatherRepository(private val service: WeatherApiService) {
     suspend fun getWeather(city: String): weatherModel {
