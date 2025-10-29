@@ -1,6 +1,6 @@
 package com.sean.labweek78.data.dto
 
-data class GetCityName(
+data class WeatherResponse(
     val base: String,
     val clouds: Clouds,
     val cod: Int,
