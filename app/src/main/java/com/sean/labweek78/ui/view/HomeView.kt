@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -40,11 +41,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sean.labweek78.R
+import com.sean.labweek78.ui.viewmodel.WeatherViewModel
 
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun weatherAppView(
-    viewModel: com.sean.labweek78.ui.model.weatherModel,
+    viewModel: WeatherViewModel,
     modifier: Modifier = Modifier
 ) {
     var searchText by rememberSaveable { mutableStateOf("") }
@@ -205,6 +210,8 @@ fun weatherDetail(
 
                 }
             }
+
+
         }
     }
 }
@@ -254,10 +261,11 @@ fun errorView() {
     }
 }
 
-@Composable
-@Preview(showBackground = true, showSystemUi = true)
-fun weatherAppPreview() {
-    weatherAppView(
-
-    )
-}
+//@Composable
+//@Preview(showBackground = true, showSystemUi = true)
+//fun WeatherAppPreview() {
+//    weatherAppView(
+//        viewModel = viewModel(),
+//        modifier = Modifier.padding()
+//    )
+//}
