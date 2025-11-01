@@ -10,12 +10,17 @@ import kotlin.getValue
 
 class AppContainer {
     companion object {
-        val baseUrl = "https://api.openweathermap.org/"
+        private const val BASE_URL = "https://api.openweathermap.org/"
     }
 
+    private val gson = GsonBuilder()
+        .serializeNulls() // This is the key change!
+        .create()
+
+
     private val retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-        .baseUrl(baseUrl)
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create(gson)) // Use the configured Gson
         .build()
 
     private val weatherService: WeatherApiService by lazy {
