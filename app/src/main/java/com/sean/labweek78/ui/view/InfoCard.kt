@@ -3,8 +3,10 @@ package com.sean.labweek78.ui.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,58 +19,64 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sean.labweek78.R
+import com.sean.labweek78.ui.model.weatherModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
-fun infoCard(
-    title: String,
-    imageId: Int,
-    value: String
-) {
-    Card(
-        modifier = Modifier
-            .width(100.dp)
-            .height(100.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0xff555a6e)
-        ),
-        shape = RoundedCornerShape(12.dp)
+fun InfoCard(weatherData: weatherModel) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceEvenly,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Image(
-                painter = painterResource(imageId),
-                contentDescription = "image",
-                modifier = Modifier.size(50.dp)
-            )
-            Text(
-                text = title,
-                color = Color(0xff9095a0),
-                fontSize = 13.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                text = value,
-                color = Color.White,
-                fontSize = 18.sp
-            )
-        }
+        // Sunrise Card
+        InfoItem(
+            modifier = Modifier.weight(1f),
+            icon = R.drawable.vector,
+            label = "Sunrise",
+            value = formatTime(weatherData.sunriseTime)
+        )
+        // Sunset Card
+        InfoItem(
+            modifier = Modifier.weight(1f),
+            icon = R.drawable.vector_21png,
+            label = "Sunset",
+            value = formatTime(weatherData.sunsetTime)
+        )
     }
 }
 
 @Composable
-@Preview(showBackground = true)
-fun infoCardPreview() {
-    infoCard(
-        title = "Feels Like",
-        imageId = R.drawable.icon_feels_like,
-        value = "20%"
-    )
+private fun InfoItem(modifier: Modifier = Modifier, icon: Int, label: String, value: String) {
+    Card(
+        modifier = modifier,
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.2f))
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = icon),
+                contentDescription = label,
+                modifier = Modifier.size(40.dp)
+            )
+            Spacer(Modifier.width(12.dp))
+            Column {
+                Text(text = label, color = Color(0xffbbbbdd), fontSize = 14.sp)
+                Text(text = value, color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            }
+        }
+    }
+}
+
+// Helper to convert Unix timestamp to a "h:mm a" time string
+private fun formatTime(timestamp: Int): String {
+    val sdf = SimpleDateFormat("h:mm a", Locale.getDefault())
+    return sdf.format(Date(timestamp.toLong() * 1000))
 }

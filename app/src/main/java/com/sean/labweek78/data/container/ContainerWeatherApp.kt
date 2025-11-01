@@ -25,4 +25,5 @@ class AppContainer {
     val weatherRepository: WeatherRepository by lazy {
         WeatherRepository(weatherService)
     }
+
 }
