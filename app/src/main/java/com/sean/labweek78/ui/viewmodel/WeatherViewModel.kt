@@ -22,57 +22,32 @@ sealed interface WeatherUiState {
 
 class WeatherViewModel : ViewModel() {
 
-    // The repository for fetching weather data.
     private val weatherRepository: WeatherRepository
-
-    // Private mutable state flow to hold the current UI state.
-    // It's private to ensure that only the ViewModel can update it.
     private val _uiState = MutableStateFlow<WeatherUiState>(WeatherUiState.Initial)
-    // Public state flow that the UI can observe for changes.
     val uiState: StateFlow<WeatherUiState> = _uiState.asStateFlow()
-
-    // Private mutable state flow for the weather data model.
     private val _weatherData = MutableStateFlow(weatherModel())
-    // Public, read-only state flow for the UI to collect weather data.
     val weatherData: StateFlow<weatherModel> = _weatherData.asStateFlow()
 
     init {
-        // Initialize the repository using the AppContainer
         weatherRepository = AppContainer().weatherRepository
     }
-
-    /**
-     * Fetches weather data for the given city and updates the UI state accordingly.
-     * @param city The name of the city to get weather for.
-     */
-    // in class WeatherViewModel
-
     fun getWeather(city: String) {
         _uiState.value = WeatherUiState.Loading
         viewModelScope.launch {
             try {
-                // Fetch the complete weather data from the repository
                 val result = weatherRepository.getWeather(city)
 
-                // Update the state with all the new data
                 _weatherData.value = result
 
-                // Set state to Success
                 _uiState.value = WeatherUiState.Success
             } catch (e: IOException) {
-                _uiState.value = WeatherUiState.Error // Network errors
+                _uiState.value = WeatherUiState.Error
             } catch (e: Exception) {
-                _uiState.value = WeatherUiState.Error // Other errors (e.g., city not found)
+                _uiState.value = WeatherUiState.Error
             }
         }
     }
 
-
-    /**
-     * Returns the full URL for a given weather icon ID.
-     * @param iconId The ID of the weather icon.
-     * @return The complete URL string for the icon image.
-     */
     fun getWeatherIconUrl(iconId: String): String {
         return weatherRepository.getWeatherIconUrl(iconId)
     }

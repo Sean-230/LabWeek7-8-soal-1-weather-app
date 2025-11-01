@@ -33,14 +33,12 @@ fun InfoCard(weatherData: weatherModel) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        // Sunrise Card
         InfoItem(
             modifier = Modifier.weight(1f),
             icon = R.drawable.vector,
             label = "Sunrise",
             value = formatTime(weatherData.sunriseTime)
         )
-        // Sunset Card
         InfoItem(
             modifier = Modifier.weight(1f),
             icon = R.drawable.vector_21png,
@@ -75,7 +73,6 @@ private fun InfoItem(modifier: Modifier = Modifier, icon: Int, label: String, va
     }
 }
 
-// Helper to convert Unix timestamp to a "h:mm a" time string
 private fun formatTime(timestamp: Int): String {
     val sdf = SimpleDateFormat("h:mm a", Locale.getDefault())
     return sdf.format(Date(timestamp.toLong() * 1000))

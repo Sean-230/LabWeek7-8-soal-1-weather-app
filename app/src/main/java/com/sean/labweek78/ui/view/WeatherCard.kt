@@ -28,7 +28,6 @@ import com.sean.labweek78.R
 import com.sean.labweek78.ui.model.weatherModel
 import kotlin.math.roundToInt
 
-// Data class to easily manage the info for each grid item
 private data class WeatherDetail(
     val icon: Int,
     val label: String,
@@ -37,7 +36,6 @@ private data class WeatherDetail(
 
 @Composable
 fun WeatherCard(weatherData: weatherModel) {
-    // A list of all the weather details we want to show
     val details = listOf(
         WeatherDetail(R.drawable.icon_humidity, "Humidity", "${weatherData.humidity}%"),
         WeatherDetail(R.drawable.icon_wind, "Wind", "${weatherData.windSpeed.roundToInt()} km/h"),
@@ -47,7 +45,6 @@ fun WeatherCard(weatherData: weatherModel) {
         WeatherDetail(R.drawable.cloud, "Clouds", "${weatherData.cloud}%")
     )
 
-    // A 3-column grid that expands as needed
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         modifier = Modifier.padding(vertical = 16.dp),
@@ -64,7 +61,6 @@ fun WeatherCard(weatherData: weatherModel) {
     }
 }
 
-// A single item in the grid
 @Composable
 private fun DetailItem(icon: Int, label: String, value: String) {
     Card(

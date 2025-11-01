@@ -80,7 +80,6 @@ fun weatherAppView(
                 .fillMaxSize()
                 .padding(horizontal = 16.dp, vertical = 40.dp)
         ) {
-            // --- SEARCH BAR ROW ---
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -141,7 +140,6 @@ fun weatherAppView(
 
             Spacer(Modifier.height(16.dp))
 
-            // --- UI STATE HANDLING ---
             when (val state = uiState) {
                 is WeatherUiState.Initial -> {
                     searchView()
@@ -172,13 +170,11 @@ fun weatherDetail(
     weatherState: weatherModel,
     iconUrl: String
 ) {
-    // Helper function to format date
     fun formatDate(timestamp: Int): String {
         val sdf = SimpleDateFormat("MMMM dd", Locale.getDefault())
         return sdf.format(Date(timestamp.toLong() * 1000))
     }
 
-    // Helper function to format time
     fun formatTime(timestamp: Int): String {
         val sdf = SimpleDateFormat("h:mm a", Locale.getDefault())
         return sdf.format(Date(timestamp.toLong() * 1000))
@@ -187,11 +183,10 @@ fun weatherDetail(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 8.dp), // Reduced top padding
+            .padding(top = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
-            // --- CITY AND DATE ---
             Text(text = weatherState.city, color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Medium)
             Spacer(Modifier.height(6.dp))
             Text(text = formatDate(weatherState.dateTime), color = Color.White, fontSize = 32.sp, fontWeight = FontWeight.Bold)
@@ -199,7 +194,6 @@ fun weatherDetail(
             Text(text = "Updated as of ${formatTime(weatherState.dateTime)}", color = Color(0xffbbbbdd), fontSize = 16.sp)
             Spacer(Modifier.height(20.dp))
 
-            // --- MAIN WEATHER ICON AND TEMP ---
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(iconUrl)
@@ -211,13 +205,11 @@ fun weatherDetail(
             Text(text = weatherState.weatherCondition, color = Color.White, fontSize = 26.sp, fontWeight = FontWeight.Bold)
             Text(text = "${weatherState.temperature.roundToInt()}°C", color = Color.White, fontSize = 64.sp, fontWeight = FontWeight.Bold)
 
-            // --- 2x3 WEATHER DETAILS GRID ---
             WeatherCard(weatherData = weatherState)
 
-            // --- 1x2 SUNRISE/SUNSET INFO ---
             InfoCard(weatherData = weatherState)
 
-            Spacer(Modifier.height(16.dp)) // Padding at the bottom
+            Spacer(Modifier.height(16.dp))
         }
     }
 }
